@@ -374,7 +374,7 @@ git push
 
 ---
 
-### Task 3: OKF conformance linter
+### Task 3: OKF conformance linter ✅
 
 **Files:**
 - Create: `prjLLMWikiTest/tools/lint_okf.py`
@@ -395,7 +395,7 @@ Rules:
 
 Rule 4 is a warning because the OKF spec requires consumers to tolerate broken links — but a producer wants to know.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `prjLLMWikiTest/tests/test_lint_okf.py`:
 
@@ -474,7 +474,7 @@ def test_unknown_keys_are_tolerated(tmp_path):
     assert errors == []
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -483,7 +483,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/test_lint_
 
 Expected: FAIL, `ModuleNotFoundError: No module named 'lint_okf'`.
 
-- [ ] **Step 3: Write the linter**
+- [x] **Step 3: Write the linter**
 
 Create `prjLLMWikiTest/tools/lint_okf.py`:
 
@@ -562,7 +562,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -571,7 +571,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/test_lint_
 
 Expected: PASS, 8 tests.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki
