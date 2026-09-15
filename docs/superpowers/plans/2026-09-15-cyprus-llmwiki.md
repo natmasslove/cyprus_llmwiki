@@ -80,7 +80,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/ -v
 
 ---
 
-### Task 1: Site manifest
+### Task 1: Site manifest ✅
 
 **Files:**
 - Create: `prjLLMWikiTest/tools/sites.py`
@@ -91,7 +91,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/ -v
 - Consumes: nothing.
 - Produces: `sites.SITES: list[dict]` — each `{"title": str, "slug": str, "region": str, "themes": list[str]}`. `title` is the Wikipedia article title. `sites.REGIONS: list[str]`, `sites.THEMES: list[str]`.
 
-- [ ] **Step 1: Write the conftest**
+- [x] **Step 1: Write the conftest**
 
 Create `prjLLMWikiTest/tests/conftest.py`:
 
@@ -104,7 +104,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 sys.path.insert(0, str(ROOT / "app" / "CyrpusLLMWikiAgent"))
 ```
 
-- [ ] **Step 2: Write the failing test**
+- [x] **Step 2: Write the failing test**
 
 Create `prjLLMWikiTest/tests/test_sites.py`:
 
@@ -141,7 +141,7 @@ def test_every_region_and_theme_has_a_member():
     assert used_themes == set(THEMES)
 ```
 
-- [ ] **Step 3: Run the test to verify it fails**
+- [x] **Step 3: Run the test to verify it fails**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -150,7 +150,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/test_sites
 
 Expected: FAIL, `ModuleNotFoundError: No module named 'sites'`.
 
-- [ ] **Step 4: Write the manifest**
+- [x] **Step 4: Write the manifest**
 
 Create `prjLLMWikiTest/tools/sites.py`:
 
@@ -225,7 +225,7 @@ def by_theme(theme: str) -> list[dict]:
     return [s for s in SITES if theme in s["themes"]]
 ```
 
-- [ ] **Step 5: Run the test to verify it passes**
+- [x] **Step 5: Run the test to verify it passes**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -234,7 +234,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/test_sites
 
 Expected: PASS, 4 tests.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki
