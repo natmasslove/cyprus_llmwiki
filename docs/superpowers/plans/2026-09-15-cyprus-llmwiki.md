@@ -247,7 +247,7 @@ git push
 
 ---
 
-### Task 2: Fetch Wikipedia plaintext
+### Task 2: Fetch Wikipedia plaintext ✅
 
 **Files:**
 - Create: `prjLLMWikiTest/tools/fetch_wikipedia.py`
@@ -259,7 +259,7 @@ git push
 
 Note: the extracts API returns one full (non-intro) extract per request, so the script makes one HTTP call per site. 15 calls, no batching. Wikipedia requires a `User-Agent`.
 
-- [ ] **Step 1: Write the script**
+- [x] **Step 1: Write the script**
 
 Create `prjLLMWikiTest/tools/fetch_wikipedia.py`:
 
@@ -342,7 +342,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-- [ ] **Step 2: Run it**
+- [x] **Step 2: Run it**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -351,7 +351,7 @@ PYTHONPATH=tools python tools/fetch_wikipedia.py
 
 Expected: 15 `ok` lines, exit 0. If any title fails to resolve, correct that `title` in `tools/sites.py` (keep the `slug` unchanged — it is the OKF filename) and rerun.
 
-- [ ] **Step 3: Verify the output**
+- [x] **Step 3: Verify the output**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -361,7 +361,7 @@ python -c "import json,glob; [print(p, len(json.load(open(p,encoding='utf-8'))['
 
 Expected: `15`, and every extract length > 1000. An extract under 1000 chars means the title hit a disambiguation or stub page — fix the title and rerun with `--force`.
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki

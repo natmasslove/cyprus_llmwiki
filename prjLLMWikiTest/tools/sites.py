@@ -11,7 +11,7 @@ THEMES = ["ancient-sites", "monasteries", "beaches-nature"]
 SITES = [
     {"title": "Paphos Archaeological Park", "slug": "paphos-archaeological-park",
      "region": "paphos", "themes": ["ancient-sites"]},
-    {"title": "Tomb of the Kings (Paphos)", "slug": "tombs-of-the-kings",
+    {"title": "Tombs of the Kings (Paphos)", "slug": "tombs-of-the-kings",
      "region": "paphos", "themes": ["ancient-sites"]},
     {"title": "Petra tou Romiou", "slug": "petra-tou-romiou",
      "region": "paphos", "themes": ["beaches-nature"]},
@@ -20,14 +20,14 @@ SITES = [
 
     {"title": "Kourion", "slug": "kourion",
      "region": "limassol", "themes": ["ancient-sites"]},
-    {"title": "Sanctuary of Apollo Hylates", "slug": "apollo-hylates",
+    {"title": "Hylates", "slug": "apollo-hylates",
      "region": "limassol", "themes": ["ancient-sites"]},
     {"title": "Kolossi Castle", "slug": "kolossi-castle",
      "region": "limassol", "themes": ["ancient-sites"]},
     {"title": "Limassol Castle", "slug": "limassol-castle",
      "region": "limassol", "themes": ["ancient-sites"]},
 
-    {"title": "Church of Saint Lazarus", "slug": "church-of-saint-lazarus",
+    {"title": "Church of Saint Lazarus, Larnaca", "slug": "church-of-saint-lazarus",
      "region": "larnaca", "themes": ["monasteries"]},
     {"title": "Hala Sultan Tekke", "slug": "hala-sultan-tekke",
      "region": "larnaca", "themes": ["monasteries"]},
