@@ -1206,7 +1206,7 @@ git push
 
 ---
 
-### Task 7: Rewire `main.py`
+### Task 7: Rewire `main.py` ✅
 
 **Files:**
 - Modify: `prjLLMWikiTest/app/CyrpusLLMWikiAgent/main.py`
@@ -1227,7 +1227,7 @@ Surgical. Touch only these:
 
 Untouched: session agent cache, `strip_trailing_tool_use`, `_extract_prompt`, `_has_inline_function_call`, `_is_inline_function_call`, `_INLINE_FUNCTION_NAMES`, the streaming entrypoint. Do not touch `pyproject.toml`. Do not delete `mcp_client/client.py` — it stays on disk, unused.
 
-- [ ] **Step 1: Replace the import block**
+- [x] **Step 1: Replace the import block**
 
 In `prjLLMWikiTest/app/CyrpusLLMWikiAgent/main.py`, replace:
 
@@ -1253,7 +1253,7 @@ with:
 from wiki_nav.tools import list_wiki, read_wiki, search_wiki, wiki_root
 ```
 
-- [ ] **Step 2: Replace the block from `mcp_clients` down to the MCP append loop**
+- [x] **Step 2: Replace the block from `mcp_clients` down to the MCP append loop**
 
 Replace this whole span:
 
@@ -1323,7 +1323,7 @@ tools = [list_wiki, read_wiki, search_wiki]
 _INLINE_FUNCTION_NAMES = set()
 ```
 
-- [ ] **Step 3: Verify the module imports and the prompt is populated**
+- [x] **Step 3: Verify the module imports and the prompt is populated**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest/app/CyrpusLLMWikiAgent
@@ -1339,7 +1339,7 @@ print('ok', len(main.DEFAULT_SYSTEM_PROMPT), 'chars of prompt')
 
 Expected: `ok <n> chars of prompt`, roughly 1500-2500.
 
-- [ ] **Step 4: Confirm the diff is surgical**
+- [x] **Step 4: Confirm the diff is surgical**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki
@@ -1349,7 +1349,7 @@ git diff prjLLMWikiTest/app/CyrpusLLMWikiAgent/main.py
 
 Expected: changes only in the import block and the span between them and `_INLINE_FUNCTION_NAMES`. `strip_trailing_tool_use`, `_extract_prompt`, `agent_factory` and `invoke` must show zero changed lines.
 
-- [ ] **Step 5: Re-run the whole test suite**
+- [x] **Step 5: Re-run the whole test suite**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -1358,7 +1358,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/ -v
 
 Expected: PASS, 20 tests.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki

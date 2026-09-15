@@ -1,42 +1,46 @@
 from typing import Any
 from collections import OrderedDict
-from strands import Agent, tool
+from strands import Agent
 import asyncio
 from strands.agent.conversation_manager.null_conversation_manager import NullConversationManager
 from bedrock_agentcore.runtime import BedrockAgentCoreApp
 from model.load import load_model
-from mcp_client.client import get_streamable_http_mcp_client
+from wiki_nav.tools import list_wiki, read_wiki, search_wiki, wiki_root
 
 app = BedrockAgentCoreApp()
 log = app.logger
 
-# Define a Streamable HTTP MCP Client
-mcp_clients = [get_streamable_http_mcp_client()]
+# The bundle root index is inlined at import. It costs about 300 tokens and saves
+# one tool call on every query: the table of contents stays in context, the pages
+# do not.
+_INDEX = (wiki_root() / "index.md").read_text(encoding="utf-8")
 
-DEFAULT_SYSTEM_PROMPT = """
-You are a helpful assistant. Use tools when appropriate.
+DEFAULT_SYSTEM_PROMPT = f"""
+You are a guide to tourist attractions in Cyprus. Your only source of facts is a
+local markdown wiki. You reach it with list_wiki, read_wiki and search_wiki.
 
+How to work:
+1. Start from the index below. Do not list the wiki root first, you already have it.
+2. Follow the markdown links to reach specifics. A link target that starts with "/"
+   is a wiki path. Pass it to read_wiki unchanged.
+3. Use search_wiki only when no link path to the answer is obvious.
+4. Answer only from document content you have actually read in this conversation.
+   If the wiki does not cover the question, say so plainly and stop. Never fall back
+   on knowledge from outside the wiki, even when you are confident.
+5. The wiki holds history and geography only. It has no opening hours, prices or
+   transport information. If asked for those, say the wiki does not carry them.
+
+End every answer with the wiki paths you read.
+
+--- wiki/index.md ---
+{_INDEX}
+--- end of index ---
 """
 
-
 # Define a collection of tools used by the model
-tools = []
+tools = [list_wiki, read_wiki, search_wiki]
 
 _INLINE_FUNCTION_NAMES = set()
-
-# Define a simple function tool
-@tool
-def add_numbers(a: int, b: int) -> int:
-    """Return the sum of two numbers"""
-    return a+b
-tools.append(add_numbers)
-
-
-
-# Add MCP client to tools if available
-for mcp_client in mcp_clients:
-    if mcp_client:
-        tools.append(mcp_client)
 
 
 def _make_conversation_manager():
