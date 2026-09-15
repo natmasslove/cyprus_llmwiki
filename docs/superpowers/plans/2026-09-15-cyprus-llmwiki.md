@@ -1485,8 +1485,36 @@ On git-bash the CLI resolves only through the `.cmd` shim.
 Totals across the four probes: 6 `read_wiki`, 4 `search_wiki`, 0 `list_wiki`.
 Inlining the root index removed the root listing call, as intended.
 
-**Open question 4, now closed.** `wiki/sites/kourion.md` has no theatre content.
-Cause: "theatre" first appears at character 13152 of the 31994-character
-Wikipedia extract, past the `CHAR_BUDGET = 12000` truncation in `build_okf.py`.
-The wiki genuinely does not hold it, so the partial answer plus "the wiki does
-not carry more" is the correct result. No content was added by hand.
+**Open question 4, now closed by raising the budget.** The first run had no
+theatre content in `wiki/sites/kourion.md`: "theatre" appears at character 13152
+of the 31994-character extract, past the old `CHAR_BUDGET = 12000`. Only 2 of 15
+extracts were truncated at all (kourion 31994, paphos-archaeological-park 16617).
+
+`CHAR_BUDGET` raised to 36000, which covers every extract with no truncation.
+Cost: +24,611 characters of input (~+6.8k tokens), one-time, across 2 calls.
+
+Surgical rebuild, 5 LLM calls rather than 23 - the other 22 files stay
+byte-identical. `build_hubs` skips existing files, so the hubs that embed a
+changed site description must be deleted too or they keep the stale copy
+silently (the linter cannot see it, the links still resolve):
+
+```bash
+rm app/CyrpusLLMWikiAgent/wiki/sites/{kourion,paphos-archaeological-park}.md
+rm app/CyrpusLLMWikiAgent/wiki/{regions/limassol.md,regions/paphos.md,themes/ancient-sites.md}
+PYTHONPATH=tools uv run --with boto3 python tools/build_okf.py
+```
+
+Result: 7 wiki files changed, lint still 0 errors 0 warnings, still 27 files.
+The feared dilution did not occur - both pages became more specific, not more
+generic. No content was added by hand.
+
+### Probe results after the rebuild
+
+| Probe | Tool calls | Change |
+| --- | --- | --- |
+| near Limassol | `read_wiki /regions/index.md`, `read_wiki /regions/limassol.md` | same trace, Kourion blurb now names the theatre |
+| Roman mosaics | `search_wiki`, `read_wiki /sites/paphos-archaeological-park.md`, `read_wiki /sites/kourion.md` | now finds BOTH sites. Kourion's House and Baths of Eustolios mosaics were missing before - a real gap, not a stylistic one |
+| Kourion theatre | `read_wiki /sites/kourion.md` | one call, no search detour. Full answer: late 2C BCE, enlarged under Trajan, 3,500 spectators |
+| Crete beaches | none | unchanged, still refuses |
+
+20 tests still pass.

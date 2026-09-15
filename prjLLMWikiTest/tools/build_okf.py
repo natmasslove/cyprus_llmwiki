@@ -18,7 +18,7 @@ from sites import SITES, REGIONS, THEMES, REGION_TITLES, THEME_TITLES, by_region
 MODEL_ID = "global.anthropic.claude-sonnet-4-5-20250929-v1:0"
 RAW = Path("raw")
 WIKI = Path("app/CyrpusLLMWikiAgent/wiki")
-CHAR_BUDGET = 12000
+CHAR_BUDGET = 36000
 
 _client = None
 

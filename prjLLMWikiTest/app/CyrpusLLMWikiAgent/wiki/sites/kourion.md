@@ -1,9 +1,9 @@
 ---
 type: attraction
 title: "Kourion"
-description: "Ancient Greek city-state on Cyprus's southwestern coast, with extensive Roman ruins atop a dramatic coastal promontory."
+description: "Ancient Greek city-state on Cyprus's southwestern coast, with extensive Roman ruins including a theatre and Apollo sanctuary."
 resource: "https://en.wikipedia.org/wiki/Kourion"
-tags: [archaeology, ancient-greece, roman, ruins, cyprus]
+tags: [archaeology, ancient-greece, roman, cyprus, ruins]
 region: "/regions/limassol.md"
 themes: [/themes/ancient-sites.md]
 coordinates: "34.6642,32.8877"
@@ -11,19 +11,19 @@ coordinates: "34.6642,32.8877"
 
 # Overview
 
-Kourion was an important ancient Greek city-state on the southwestern coast of Cyprus, founded by Greek settlers from Argos in the twelfth century BCE after the collapse of the Mycenaean palaces. The acropolis sits atop a limestone promontory nearly 100 metres high along Episkopi Bay. The site features extensive archaeological remains, primarily from the Roman and Late Roman/Early Byzantine periods. The Kourion archaeological area is managed by the Cyprus Department of Antiquity and lies within the British Overseas Territory of Akrotiri and Dhekelia.
+Kourion was an important ancient Greek city-state on the southwestern coast of Cyprus, established by Greek settlers from Argos in the twelfth century BCE after the collapse of the Mycenaean palaces. The acropolis sits atop a limestone promontory nearly 100 metres high along Episkopi Bay, located 1.3 kilometres southwest of Episkopi and 13 kilometres west of Limassol. The site lies within the British Overseas Territory of Akrotiri and Dhekelia and is managed by the Cyprus Department of Antiquity. Most visible archaeological remains date to the Roman and Late Roman/Early Byzantine periods.
 
 # History
 
-The Kingdom of Kourion was established during the Cypro-Geometric period (1050–750 BCE) and became one of the most influential kingdoms in Cyprus during the Cypro-Archaic period. The city came under successive Assyrian, Egyptian, Persian, Ptolemaic, and Roman rule, with King Pasikrates aiding Alexander the Great at the siege of Tyre in 332 BCE. Under Roman rule from 58 BCE, Kourion flourished as a prominent city with a thriving elite and civic government. Between 365 and 370 CE, five strong earthquakes caused near-complete destruction, though the city was reconstructed in the late fourth and early fifth centuries. Arab raids in 648–649 destroyed the acropolis, after which occupation shifted to nearby Episkopi.
+The Kingdom of Kourion was established during the Cypro-Geometric period (1050–750 BCE) and became one of Cyprus's most influential kingdoms during the Cypro-Archaic period. King Pasikrates aided Alexander the Great in the siege of Tyre in 332 BCE, and the city later came under Ptolemaic and then Roman rule from 58 BCE. Kourion flourished under Roman administration with a thriving civic government and elite class, but suffered devastating earthquakes between 365 and 370 CE. The city was reconstructed in the late fourth and early fifth centuries with a major Christian ecclesiastical precinct, but Arab raids in 648–649 destroyed the acropolis and the population relocated to Episkopi.
 
 # What to see
 
-The Sanctuary of Apollo Hylates, located 1.7 km west of the acropolis, was a Pan-Cyprian sanctuary third in importance only to the sanctuaries at Salamis and Paphos, with remains dating from the late eighth century BCE. The sanctuary's present form dates to the first century CE and includes an Augustan temple, sacred street, palaestra, and circular monument, with restorations under Trajan following the earthquake of 76/77 CE. The acropolis features Roman and Late Roman/Early Byzantine archaeological remains, including an Early Christian Basilica excavated in the mid-twentieth century. Excavations have also uncovered the House of Gladiators, the Apsed Building, and numerous tombs at the Kaloriziki necropolis below the bluffs.
+The Sanctuary of Apollo Hylates, located 1.7 kilometres west of the acropolis, was a Pan-Cyprian sanctuary dating from the late eighth century BCE, with its present form from the first and second centuries CE. The Roman theatre, initially constructed in the late second century BCE and enlarged under Trajan, could accommodate 3,500 spectators and is now used for performances of ancient Greek drama. The House and Baths of Eustolios features elaborate mosaics including a personification of Ktisis, while the early fifth-century cathedral and episcopal precinct demonstrates the centrality of Christianity to the city. The stadium, constructed during the Antonine period (138–180 CE), is the only excavated stadium in Cyprus and could seat approximately 6,000 spectators.
 
 # Location & access
 
-The acropolis of Kourion is located 1.3 km southwest of Episkopi and 13 km west of Limassol on Cyprus's southwestern coast. It sits atop a limestone promontory nearly 100 metres high along the coast of Episkopi Bay. The site lies within the Kouris River valley, which provided a corridor for trade of Troodos copper in ancient times. The Sanctuary of Apollo Hylates is situated 1.7 km west of the acropolis and 0.65 km inland from the coastline.
+Kourion is situated on the southwestern coast of Cyprus along Episkopi Bay, 13 kilometres west of Limassol and 1.3 kilometres southwest of the village of Episkopi. The acropolis occupies a dramatic limestone promontory rising nearly 100 metres above the coastline. The archaeological area encompasses the acropolis, the Sanctuary of Apollo Hylates to the west, the stadium between them, and various cemeteries and basilicas in the surrounding terrain. The site lies within the British Overseas Territory of Akrotiri and Dhekelia on Cyprus's southern coast.
 
 # Related
 - [Limassol](/regions/limassol.md) - region overview
