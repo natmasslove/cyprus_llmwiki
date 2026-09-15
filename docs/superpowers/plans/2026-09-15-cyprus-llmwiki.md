@@ -1428,13 +1428,13 @@ git push
 
 ---
 
-### Task 9 (optional): Third-party consumer check
+### Task 9 (optional): Third-party consumer check ✅
 
 Confirms the bundle is readable by a consumer we did not write. Skip if time is short — the prototype is complete without it.
 
 **Files:** none in this repo. Clone outside the repo.
 
-- [ ] **Step 1: Clone and visualize**
+- [x] **Step 1: Clone and visualize**
 
 ```bash
 cd C:/Users/anatolii.maslov/AppData/Local/Temp
@@ -1443,11 +1443,51 @@ cd open-knowledge-format
 uv run python -m reference_agent visualize --bundle C:/_prj/cyprus_llmwiki/prjLLMWikiTest/app/CyrpusLLMWikiAgent/wiki
 ```
 
-- [ ] **Step 2: Check the graph**
+- [x] **Step 2: Check the graph**
 
 Expected: 27 nodes; hub nodes fan out to their member sites; no isolated node other than nothing at all. A star topology around `index.md` means the cross-links in Task 4's `# Related` section did not land.
 
 Do not commit the clone.
+
+**Result, run 2026-09-15.** The repo, the `reference_agent` module and the
+`visualize` subcommand all exist as assumed. The command ran and exited 0.
+
+```
+Wrote 23 concept(s), 0 edge(s), 78870 bytes -> okf-viz.html
+```
+
+Neither number matches the plan's expectation, and neither is a bundle defect:
+
+| Expected | Got | Why |
+| --- | --- | --- |
+| 27 nodes | 23 concepts | The walker skips every `index.md` (`generator.py:106`). 27 - 4 indexes = 23. Reserved files are not concepts. |
+| hub fan-out | 0 edges | `_extract_links` (`generator.py:87`) discards any link target that starts with `/`. All 124 links in the bundle use that form. |
+
+The 0 edges is a limitation of that viewer, not of the bundle. OKF `SPEC.md`
+lines 444-445 call the `/`-prefixed absolute form **recommended**, "because it
+is stable"; the viewer drops exactly that form and only resolves relative
+links. The repo's own sample bundles use relative links, so they never hit it.
+
+This is **not** the star-topology failure Step 2 warns about. A star would mean
+the `# Related` cross-links did not land. They did. Re-running the vendor's own
+`_walk_concepts` / `_build_graph` with `_extract_links` taught to accept a
+leading `/` (diagnostic only, nothing in this repo changed):
+
+```
+concepts=23 edges=98
+isolated: none
+regions/famagusta out=1   regions/larnaca out=4   regions/limassol out=4
+regions/paphos    out=4   regions/troodos out=2
+themes/ancient-sites out=7  themes/beaches-nature out=3  themes/monasteries out=5
+```
+
+Region out-degrees sum to 15 and theme out-degrees sum to 15 - every site is
+reachable from exactly one region hub and at least one theme hub. No isolated
+node. That is the shape Step 2 asked for.
+
+Verdict: the bundle is readable by a consumer we did not write. Its parser
+accepted all 23 concept documents with no `OKFDocumentError`. Its graph view
+under-reports the edges because of the link-form gap above.
 
 ---
 
