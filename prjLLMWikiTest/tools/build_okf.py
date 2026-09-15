@@ -116,9 +116,117 @@ def build_sites(force: bool = False) -> None:
         print(f"ok    sites/{site['slug']}.md", flush=True)
 
 
+def read_description(path: Path) -> str:
+    """Pull `description` out of a generated document's frontmatter.
+
+    The builder writes that frontmatter itself with JSON-quoted scalars, so a
+    line-scan is enough and boto3 stays the only dependency.
+    """
+    for line in path.read_text(encoding="utf-8").splitlines()[1:]:
+        if line == "---":
+            break
+        if line.startswith("description:"):
+            return json.loads(line[len("description:"):].strip())
+    return ""
+
+
+HUB_PROMPT = """You write the orientation paragraph for a hub page of a Cyprus travel
+knowledge base.
+
+HUB: {hub_title}
+MEMBER SITES:
+{members}
+
+Write ONE paragraph, 3 to 5 sentences, that tells a reader what this group of places
+has in common and what to expect. Use only what the member list implies. Invent no
+facts, no hours, no prices, no travel times. No markdown links, no headings.
+
+Return ONLY a JSON object:
+{{"description": "one sentence, under 140 characters", "tags": ["2 to 4 lowercase tags"], "body": "the paragraph"}}
+"""
+
+
+def _build_hub(kind: str, key: str, title: str, members: list, force: bool) -> None:
+    out = WIKI / f"{kind}s" / f"{key}.md"
+    if out.exists() and not force:
+        print(f"skip  {kind}s/{key}.md")
+        return
+    listing = "\n".join(
+        f"- {display(m)}: {read_description(WIKI / 'sites' / (m['slug'] + '.md'))}"
+        for m in members
+    )
+    answer = parse_json(ask(HUB_PROMPT.format(hub_title=title, members=listing), max_tokens=900))
+    body = answer["body"].strip() + "\n\n# Sites\n"
+    for m in members:
+        body += f"- [{display(m)}](/sites/{m['slug']}.md) - {read_description(WIKI / 'sites' / (m['slug'] + '.md'))}\n"
+    fm = {"type": kind, "title": title, "description": answer["description"], "tags": answer["tags"]}
+    out.write_text(frontmatter(fm) + "\n" + body, encoding="utf-8")
+    print(f"ok    {kind}s/{key}.md", flush=True)
+
+
+def build_hubs(force: bool = False) -> None:
+    (WIKI / "regions").mkdir(parents=True, exist_ok=True)
+    (WIKI / "themes").mkdir(parents=True, exist_ok=True)
+    for region in REGIONS:
+        _build_hub("region", region, REGION_TITLES[region], by_region(region), force)
+    for theme in THEMES:
+        _build_hub("theme", theme, THEME_TITLES[theme], by_theme(theme), force)
+
+
+def build_indexes() -> None:
+    """Deterministic. Always rewritten, so it always matches what is on disk."""
+    def listing(kind: str, keys, titles) -> str:
+        return "".join(
+            f"- [{titles[k]}](/{kind}/{k}.md) - {read_description(WIKI / kind / (k + '.md'))}\n"
+            for k in keys
+        )
+
+    (WIKI / "regions" / "index.md").write_text(
+        frontmatter({"type": "index", "title": "Regions",
+                     "description": "The five areas this wiki covers."})
+        + "\n# Regions\n\n" + listing("regions", REGIONS, REGION_TITLES),
+        encoding="utf-8")
+
+    (WIKI / "themes" / "index.md").write_text(
+        frontmatter({"type": "index", "title": "Themes",
+                     "description": "Cross-cutting groupings of attractions."})
+        + "\n# Themes\n\n" + listing("themes", THEMES, THEME_TITLES),
+        encoding="utf-8")
+
+    (WIKI / "sites" / "index.md").write_text(
+        frontmatter({"type": "index", "title": "Sites",
+                     "description": "All 15 attractions, alphabetical."})
+        + "\n# Sites\n\n" + "".join(
+            f"- [{display(s)}](/sites/{s['slug']}.md) - {read_description(WIKI / 'sites' / (s['slug'] + '.md'))}\n"
+            for s in sorted(SITES, key=display)),
+        encoding="utf-8")
+
+    (WIKI / "index.md").write_text(
+        frontmatter({"type": "index", "okf_version": "0.2", "title": "Cyprus Attractions",
+                     "description": "Tourist attractions in the government-controlled areas of Cyprus."})
+        + """
+# Cyprus Attractions
+
+A knowledge base of 15 tourist attractions in the government-controlled areas of
+the Republic of Cyprus: archaeological sites, castles, monasteries and natural
+landmarks. Content is historical and geographic only. It carries no opening
+hours, prices or travel practicalities. Sites in the north are not covered.
+
+## Directories
+
+- [Regions](/regions/index.md) - browse by area: Paphos, Limassol, Larnaca, Troodos, Famagusta
+- [Themes](/themes/index.md) - browse by kind: ancient sites, monasteries and churches, beaches and nature
+- [Sites](/sites/index.md) - all 15 attraction pages, alphabetical
+""",
+        encoding="utf-8")
+    print("ok    index.md x4")
+
+
 def main() -> int:
     force = "--force" in sys.argv
     build_sites(force)
+    build_hubs(force)
+    build_indexes()
     return 0
 
 

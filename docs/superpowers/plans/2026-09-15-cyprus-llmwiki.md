@@ -787,7 +787,7 @@ git push
 
 ---
 
-### Task 5: Build pass 2 — hubs and indexes
+### Task 5: Build pass 2 — hubs and indexes ✅
 
 **REQUIRES AWS BEDROCK CREDENTIALS.**
 
@@ -801,7 +801,7 @@ git push
 
 Hub bodies: one LLM call per hub for the orientation paragraph only; the member link list is appended deterministically. Index files are fully deterministic — no LLM.
 
-- [ ] **Step 1: Add the pass-2 code**
+- [x] **Step 1: Add the pass-2 code**
 
 Append to `prjLLMWikiTest/tools/build_okf.py`, above `main()`:
 
@@ -912,7 +912,7 @@ hours, prices or travel practicalities. Sites in the north are not covered.
     print("ok    index.md x4")
 ```
 
-- [ ] **Step 2: Wire pass 2 into `main`**
+- [x] **Step 2: Wire pass 2 into `main`**
 
 Replace `main()` in `prjLLMWikiTest/tools/build_okf.py` with:
 
@@ -925,7 +925,7 @@ def main() -> int:
     return 0
 ```
 
-- [ ] **Step 3: Run it**
+- [x] **Step 3: Run it**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -934,7 +934,7 @@ PYTHONPATH=tools uv run --with boto3 python tools/build_okf.py
 
 Expected: 15 `skip` lines, 8 `ok` hub lines, `ok index.md x4`.
 
-- [ ] **Step 4: Verify — the linter must be clean**
+- [x] **Step 4: Verify — the linter must be clean**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -948,7 +948,7 @@ Expected: `0 error(s), 0 warning(s)`, `exit=0`, and `27` markdown files (15 site
 
 A broken-link warning means a slug in `sites.py` and a filename disagree. Fix `sites.py`, then rerun with `--force`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki
