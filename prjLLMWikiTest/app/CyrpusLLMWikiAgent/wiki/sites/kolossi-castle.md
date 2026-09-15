@@ -11,7 +11,7 @@ coordinates: "34.665273,32.933957"
 
 # Overview
 
-Kolossi Castle is a former Crusader stronghold located on the south-west edge of Kolossi village, 14 kilometres west of Limassol on the island of Cyprus. It held great strategic importance in the Middle Ages and contained large facilities for the production of sugar from local sugarcane, one of Cyprus's main exports in the period. The area is also known for Commandaria, a sweet wine thought to be the oldest continually-produced and named wine in the world.
+Kolossi Castle is a former Crusader stronghold located on the south-west edge of Kolossi village, 14 kilometres west of Limassol on the island of Cyprus. It held great strategic importance in the Middle Ages and contained large facilities for the production of sugar from local sugarcane, one of Cyprus's main exports in the period. The area is also known for producing Commandaria, a sweet wine thought to be the oldest continually-produced and named wine in the world.
 
 # History
 
@@ -19,7 +19,7 @@ The original castle was possibly built in 1210 by the Frankish military when Kin
 
 # What to see
 
-The castle today consists of a single three-storey square keep, 21 metres high with dimensions of 17 by 17 metres. It has an attached rectangular enclosure or bailey measuring about 30 by 40 metres. The coat-of-arms of Louis de Magnac is carved into the castle's walls, marking the 1454 construction.
+The castle today consists of a single three-storey square keep, 21 metres high with dimensions of 17 by 17 metres. It has an attached rectangular enclosure or bailey measuring about 30 by 40 metres. The coat-of-arms of Louis de Magnac is carved into the castle's walls, marking the 1454 construction by the Hospitallers.
 
 # Location & access
 
@@ -29,5 +29,5 @@ Kolossi Castle is situated on the south-west edge of Kolossi village, 14 kilomet
 - [Limassol](/regions/limassol.md) - region overview
 - [Ancient & Historic Sites](/themes/ancient-sites.md) - theme
 - [Kourion](/sites/kourion.md) - also in Limassol
-- [Hylates](/sites/apollo-hylates.md) - also in Limassol
+- [Sanctuary of Apollo Hylates](/sites/apollo-hylates.md) - also in Limassol
 - [Limassol Castle](/sites/limassol-castle.md) - also in Limassol

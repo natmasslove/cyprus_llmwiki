@@ -13,7 +13,7 @@ from pathlib import Path
 
 import boto3
 
-from sites import SITES, REGIONS, THEMES, REGION_TITLES, THEME_TITLES, by_region, by_theme
+from sites import SITES, REGIONS, THEMES, REGION_TITLES, THEME_TITLES, by_region, by_theme, display
 
 MODEL_ID = "global.anthropic.claude-sonnet-4-5-20250929-v1:0"
 RAW = Path("raw")
@@ -99,11 +99,11 @@ def build_sites(force: bool = False) -> None:
         for t in site["themes"]:
             body += f"- [{THEME_TITLES[t]}](/themes/{t}.md) - theme\n"
         for r in related:
-            body += f"- [{r['title']}](/sites/{r['slug']}.md) - also in {REGION_TITLES[site['region']]}\n"
+            body += f"- [{display(r)}](/sites/{r['slug']}.md) - also in {REGION_TITLES[site['region']]}\n"
 
         fm = {
             "type": "attraction",
-            "title": site["title"],
+            "title": display(site),
             "description": answer["description"],
             "resource": raw["url"],
             "tags": answer["tags"],

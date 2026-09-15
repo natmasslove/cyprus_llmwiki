@@ -2,7 +2,8 @@
 
 Region and theme assignment is a curation decision, fixed by hand here and never
 left to the model. `title` must be the English Wikipedia article title; the fetch
-script follows redirects, so a near-miss title still resolves.
+script follows redirects, so a near-miss title still resolves. `display` overrides
+the name shown in the wiki when the article title is a poor label for the place.
 """
 
 REGIONS = ["paphos", "limassol", "larnaca", "troodos", "famagusta"]
@@ -20,7 +21,7 @@ SITES = [
 
     {"title": "Kourion", "slug": "kourion",
      "region": "limassol", "themes": ["ancient-sites"]},
-    {"title": "Hylates", "slug": "apollo-hylates",
+    {"title": "Hylates", "slug": "apollo-hylates", "display": "Sanctuary of Apollo Hylates",
      "region": "limassol", "themes": ["ancient-sites"]},
     {"title": "Kolossi Castle", "slug": "kolossi-castle",
      "region": "limassol", "themes": ["ancient-sites"]},
@@ -58,6 +59,10 @@ THEME_TITLES = {
     "monasteries": "Monasteries & Churches",
     "beaches-nature": "Beaches & Nature",
 }
+
+
+def display(site: dict) -> str:
+    return site.get("display", site["title"])
 
 
 def by_region(region: str) -> list[dict]:
