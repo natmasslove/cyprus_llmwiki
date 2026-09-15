@@ -584,7 +584,7 @@ git push
 
 ---
 
-### Task 4: Build pass 1 — attraction documents
+### Task 4: Build pass 1 — attraction documents ✅
 
 **REQUIRES AWS BEDROCK CREDENTIALS.** Uses `bedrock-runtime:Converse` in the region from `AWS_REGION`/`AWS_DEFAULT_REGION`.
 
@@ -605,7 +605,7 @@ Decisions locked here:
 | Extract budget | 12000 chars | Paphos Park is ~8k words; truncation keeps the call cheap |
 | Idempotence | skip existing output unless `--force` | repeated runs cost nothing |
 
-- [ ] **Step 1: Write the builder (pass 1 only)**
+- [x] **Step 1: Write the builder (pass 1 only)**
 
 Create `prjLLMWikiTest/tools/build_okf.py`:
 
@@ -738,7 +738,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-- [ ] **Step 2: Smoke-test one document before spending 15 calls**
+- [x] **Step 2: Smoke-test one document before spending 15 calls**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -751,7 +751,7 @@ print(build_okf.ask(build_okf.SITE_PROMPT.format(title=raw['title'], extract=raw
 
 Expected: a JSON object with `description`, `tags`, `body`. If credentials or model access fail, stop and fix that first.
 
-- [ ] **Step 3: Run the full pass**
+- [x] **Step 3: Run the full pass**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -760,7 +760,7 @@ PYTHONPATH=tools uv run --with boto3 python tools/build_okf.py
 
 Expected: 15 `ok` lines.
 
-- [ ] **Step 4: Verify**
+- [x] **Step 4: Verify**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -774,7 +774,7 @@ Expected: `15`; frontmatter with `type: attraction` and all 7 keys; the hallucin
 
 If any page contains practical facts, rebuild only that page: delete it and rerun without `--force`.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki
