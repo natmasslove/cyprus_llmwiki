@@ -961,7 +961,7 @@ git push
 
 ---
 
-### Task 6: Agent navigation tools
+### Task 6: Agent navigation tools ✅
 
 **Files:**
 - Create: `prjLLMWikiTest/app/CyrpusLLMWikiAgent/wiki_nav/__init__.py` (empty)
@@ -982,7 +982,7 @@ Two decisions from the spec, do not change them:
 - **Frontmatter is NOT stripped on read.** The agent needs `type`, `tags`, `region`, `themes` to decide where to go next.
 - **Errors return guidance, never raise.** A wrong path returns a directory listing so the agent self-corrects in one turn.
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `prjLLMWikiTest/tests/test_wiki_nav.py`:
 
@@ -1055,7 +1055,7 @@ def test_search_wiki_no_matches_returns_root_listing(wiki):
     assert "sites/" in out
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -1064,7 +1064,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/test_wiki_
 
 Expected: FAIL, `ModuleNotFoundError: No module named 'wiki_nav'`.
 
-- [ ] **Step 3: Write the tools**
+- [x] **Step 3: Write the tools**
 
 Create an empty `prjLLMWikiTest/app/CyrpusLLMWikiAgent/wiki_nav/__init__.py`, then `prjLLMWikiTest/app/CyrpusLLMWikiAgent/wiki_nav/tools.py`:
 
@@ -1169,7 +1169,7 @@ def search_wiki(query: str) -> str:
     return "\n".join(hits)
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -1178,7 +1178,7 @@ uv run --with pytest --with pyyaml --with strands-agents pytest tests/ -v
 
 Expected: PASS, 20 tests (4 + 8 + 8).
 
-- [ ] **Step 5: Smoke-test against the real bundle**
+- [x] **Step 5: Smoke-test against the real bundle**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest/app/CyrpusLLMWikiAgent
@@ -1193,7 +1193,7 @@ print(search_wiki('mosaic')[:300])
 
 Expected: the real `wiki/` path, the root listing with `regions/ sites/ themes/ index.md`, Kourion's frontmatter, and at least one mosaic hit.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki
