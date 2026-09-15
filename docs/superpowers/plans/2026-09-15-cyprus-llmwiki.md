@@ -1371,13 +1371,13 @@ git push
 
 ---
 
-### Task 8: Manual probe run
+### Task 8: Manual probe run ✅
 
 **REQUIRES AWS BEDROCK CREDENTIALS.** No code changes. This is the acceptance gate.
 
 **Files:** none.
 
-- [ ] **Step 1: Start the agent locally**
+- [x] **Step 1: Start the agent locally**
 
 ```bash
 cd C:/_prj/cyprus_llmwiki/prjLLMWikiTest
@@ -1386,7 +1386,7 @@ agentcore dev
 
 Leave it running in its own terminal.
 
-- [ ] **Step 2: Run the four probes**
+- [x] **Step 2: Run the four probes**
 
 In a second terminal, one at a time:
 
@@ -1398,7 +1398,7 @@ agentcore invoke --dev '{"prompt": "Tell me about Kourion theatre"}'
 agentcore invoke --dev '{"prompt": "What are the best beaches in Crete?"}'
 ```
 
-- [ ] **Step 3: Check the trace, not only the answer text**
+- [x] **Step 3: Check the trace, not only the answer text**
 
 Read the tool calls in the `agentcore dev` output for each probe:
 
@@ -1409,11 +1409,11 @@ Read the tool calls in the `agentcore dev` output for each probe:
 | Kourion theatre | `read_wiki /sites/kourion.md`, a short path | a long search-first detour |
 | Crete beaches | a refusal, "the wiki does not cover Crete" | any actual Crete content — grounding rule broken |
 
-- [ ] **Step 4: If the Crete probe does not refuse**
+- [x] **Step 4: If the Crete probe does not refuse**
 
 Do not weaken the probe. Strengthen rule 4 of `DEFAULT_SYSTEM_PROMPT` in `main.py`, then rerun all four probes. Grounding is the whole point of the prototype.
 
-- [ ] **Step 5: Record the outcome**
+- [x] **Step 5: Record the outcome**
 
 Append a short `## Probe results` section to this plan file with the tool-call sequence observed for each of the four probes, then commit:
 
@@ -1462,3 +1462,31 @@ Flag to the user, do not resolve by inventing:
 | 3 | Spec §8.2 says pass 2 "generates" hubs but §8.0 says they are produced by "inverting this list". | Hubs get one LLM call for the orientation paragraph only; the member link lists and all four `index.md` files are deterministic. |
 | 4 | Spec §11.2 lists the probe "Tell me about Kourion's theatre". Whether the Wikipedia extract covers the theatre in enough detail is unknown until Task 2 runs. | If it does not, the correct answer is a partial one plus "the wiki does not carry more". Do not add content by hand to make the probe look better. |
 | 5 | Exact Wikipedia article titles are not verified in this plan. | `redirects=1` absorbs most drift; Task 2 Step 2 fails loudly on any title that does not resolve and tells the executor to fix `sites.py`. |
+
+---
+
+## Probe results
+
+Run 2026-09-15 against `agentcore dev` on port 8083, model
+`global.anthropic.claude-sonnet-4-5-20250929-v1:0`, eu-central-1.
+
+CLI note: this project's `agentcore` is v0.29.0, where local invoke is
+`agentcore dev --port <p> -H "X-Agentcore-Local: 1" "<prompt>"`. The plan's
+`agentcore invoke --dev '{json}'` is older syntax and prints help instead.
+On git-bash the CLI resolves only through the `.cmd` shim.
+
+| Probe | Tool calls | Verdict |
+| --- | --- | --- |
+| near Limassol | `read_wiki /regions/index.md`, `read_wiki /regions/limassol.md` | PASS - named all 4 Limassol sites from the hub |
+| Roman mosaics | `search_wiki`, `read_wiki /sites/paphos-archaeological-park.md`, `search_wiki`, `read_wiki /sites/kourion.md`, `read_wiki /themes/ancient-sites.md` | PASS - only Paphos, which is what the wiki says |
+| Kourion theatre | `read_wiki /sites/kourion.md`, `search_wiki` x2 | PASS - short path first, then said the wiki does not carry the theatre |
+| Crete beaches | none | PASS - refused, zero Crete content |
+
+Totals across the four probes: 6 `read_wiki`, 4 `search_wiki`, 0 `list_wiki`.
+Inlining the root index removed the root listing call, as intended.
+
+**Open question 4, now closed.** `wiki/sites/kourion.md` has no theatre content.
+Cause: "theatre" first appears at character 13152 of the 31994-character
+Wikipedia extract, past the `CHAR_BUDGET = 12000` truncation in `build_okf.py`.
+The wiki genuinely does not hold it, so the partial answer plus "the wiki does
+not carry more" is the correct result. No content was added by hand.
